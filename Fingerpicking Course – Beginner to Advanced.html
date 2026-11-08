@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fingerpicking Course – Beginner to Advanced</title>
+<style>
+:root{--bg:#111215;--p1:#181a20;--p2:#242832;--amb:#f2a93b;--cream:#ffe9cc;--tx:#d9dde6;--mu:#8e96a8;--wood:#5a3d22;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-padding-top:120px}
+body{background:var(--bg);color:var(--tx);font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}
+header{padding:2.2rem 1.2rem 1.4rem;text-align:center;border-bottom:3px solid var(--wood)}
+h1,h2,h3{font-family:Georgia,"Iowan Old Style",serif;color:var(--cream);font-weight:600}
+h1{font-size:2.1rem}
+header p{color:var(--mu);max-width:620px;margin:.5rem auto 0}
+#bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--p1);border-bottom:1px solid var(--wood);padding:.6rem 1rem;display:flex;flex-wrap:wrap;gap:.7rem 1rem;align-items:center;justify-content:center}
+#bar a{color:var(--tx);text-decoration:none;padding:.2rem .6rem;border-radius:5px;font-size:.92rem}
+#bar a:hover{background:var(--p2)}
+#bpm{font:700 1.3rem Georgia,serif;color:var(--amb);min-width:2.4em;text-align:right}
+input[type=range]{accent-color:var(--amb);width:140px}
+button{background:var(--amb);color:#1a1205;border:0;border-radius:6px;padding:.45rem 1rem;font-weight:700;cursor:pointer;font-size:.92rem}
+button.s{background:var(--p2);color:var(--tx)}
+button.on{background:#c0392b;color:#fff}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--cream);outline-offset:2px}
+main{max-width:860px;margin:0 auto;padding:1rem}
+h2{font-size:1.7rem;margin:2.6rem 0 .3rem;padding-bottom:.3rem;border-bottom:2px solid var(--wood)}
+.lead{color:var(--mu);margin-bottom:1rem}
+h3{font-size:1.3rem}
+.card{background:var(--p1);border:1px solid var(--p2);border-left:4px solid var(--wood);border-radius:10px;padding:1.2rem 1.3rem;margin:1.1rem 0}
+.card p,.card li{margin:.5rem 0;max-width:70ch}
+.card ul,.card ol{padding-left:1.3rem}
+.tip,.warn{padding:.6rem .9rem;border-radius:0 8px 8px 0;margin:.8rem 0;max-width:70ch;font-size:.95rem}
+.tip{background:#2a2414;border-left:4px solid var(--amb)}
+.warn{background:#2c1a1a;border-left:4px solid #d9534f}
+table{border-collapse:collapse;margin:.8rem 0;font-size:.95rem}
+th,td{border:1px solid var(--p2);padding:.4rem .8rem;text-align:left}
+th{background:var(--p2);color:var(--cream)}
+.meta{display:flex;justify-content:space-between;gap:.6rem;align-items:baseline;flex-wrap:wrap}
+.meta label{font-size:.85rem;color:var(--mu);cursor:pointer}
+.stage{display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-start;margin:.9rem 0;overflow-x:auto}
+.bar{display:flex;gap:2px;background:var(--bg);padding:.6rem;border-radius:8px;border:1px solid var(--p2)}
+.col{width:34px;text-align:center;border-radius:5px;padding:2px 0}
+.col.act{background:#3a2d12}
+.col .n{display:block;font-size:.72rem;color:var(--mu)}
+.col .f{display:block;font:700 .8rem Georgia,serif;color:var(--mu);height:1.2em}
+.c{display:block;height:22px;line-height:22px;font:700 .85rem ui-monospace,Menlo,monospace;background:linear-gradient(#3a3f4d,#3a3f4d) center/100% 1px no-repeat}
+.c b{display:inline-block;min-width:20px;border-radius:10px;background:#9fb4d9;color:#111215}
+.c b.p{background:var(--amb)}
+.cap{font-size:.78rem;color:var(--mu);margin:.2rem 0 0}
+.row{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+.lv{font-size:.8rem;color:var(--amb)}
+footer{text-align:center;color:var(--mu);padding:2.5rem 1rem;font-size:.88rem}
+@media(max-width:600px){h1{font-size:1.6rem}.col{width:30px}}
+@media(prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+</head>
+<body>
+<header>
+<h1>Fingerpicking, from first note to full arrangements</h1>
+<p>Eleven playable lessons in three levels, plus the setup, technique and practice guides. Every pattern shows the tab, the fingers, the chord shape and the count, and plays back at your tempo so you can hear the target before you try it.</p>
+</header>
+
+<div id="bar">
+<span>Tempo <span id="bpm">70</span></span>
+<input type="range" id="sl" min="40" max="140" value="70" aria-label="Tempo in beats per minute">
+<label><input type="checkbox" id="clk"> Click</label>
+<button class="s" id="stop">Stop</button>
+<a href="#basics">Basics</a><a href="#l1">Beginner</a><a href="#l2">Intermediate</a><a href="#l3">Advanced</a><a href="#practice">Practice</a>
+</div>
+
+<main>
+<h2 id="basics">Basics: set up before you play</h2>
+<p class="lead">Ten minutes here saves months later.</p>
+
+<div class="card"><h3>Position</h3>
+<ul>
+<li><b>Seated:</b> upright on a firm chair, guitar body resting on your right thigh (right-handed), neck angled slightly up. Classical players raise the left foot on a footstool and rest the guitar on the left thigh. Either is fine; choose the one that keeps your shoulders level.</li>
+<li><b>Right hand:</b> forearm rests on the guitar’s upper bout. Wrist gently arched, not collapsed. Fingers curl toward the palm and pluck <i>across</i> and slightly up, not straight down into the soundboard.</li>
+<li><b>Thumb:</b> sits slightly in front of (towards the headstock side of) the fingers, so that thumb and fingers never collide.</li>
+<li><b>Nails:</b> a little free edge on i, m and a gives a clear tone. Filed smooth and rounded to follow the fingertip. Fleshy fingertips sound softer and work well too.</li>
+</ul>
+<div class="warn">Avoid planting the little finger on the top as an anchor. A light touch is fine at first, but a heavy anchor locks the hand and limits reach.</div></div>
+
+<div class="card"><h3>Finger names and strings</h3>
+<p>Classical letters are used everywhere in this course. The strings are numbered 1 (thinnest, high e) to 6 (thickest, low E).</p>
+<table><tr><th>Finger</th><th>Letter</th><th>Home string</th><th>Job</th></tr>
+<tr><td>Thumb</td><td>p</td><td>6, 5, 4</td><td>Bass notes, the pulse</td></tr>
+<tr><td>Index</td><td>i</td><td>3</td><td>Inner harmony</td></tr>
+<tr><td>Middle</td><td>m</td><td>2</td><td>Harmony or melody</td></tr>
+<tr><td>Ring</td><td>a</td><td>1</td><td>Top melody notes</td></tr></table>
+<p>Each finger has its own string, so you never have to look for it. Thumb moves between 6, 5 and 4 to follow the chord’s root.</p></div>
+
+<div class="card"><h3>How to read the lessons</h3>
+<ul>
+<li>Each column is one eighth note. The count above is <b>1 &amp; 2 &amp; 3 &amp; 4 &amp;</b>, so eight columns make one bar of 4/4. Say it out loud while you play.</li>
+<li>The top line of the tab is string 1, the bottom is string 6. A number is the fret; 0 is an open string. Amber dots are thumb notes; blue dots are fingers. The letter underneath is the picking finger.</li>
+<li>The chord box on the left shows where the left hand goes. Hold the whole shape down for the entire bar, even if some notes are not played yet.</li>
+<li>Press <b>Play</b> to hear and watch the pattern. Change the tempo in the bar at the top. Tick “mastered” when you can play it cleanly for 2 minutes at 60 BPM.</li>
+</ul></div>
+
+<div class="card"><h3>Free stroke and rest stroke</h3>
+<p>In a <b>free stroke</b> the finger plucks and swings clear above the next string. It is the default in fingerstyle, giving a light, ringing tone. In a <b>rest stroke</b> the finger plucks and comes to rest on the next string, giving a fuller, louder note, which is useful for a melody you want to stand out. Start every lesson with free stroke.</p></div>
+
+<h2 id="l1">Level 1 – Beginner</h2>
+<p class="lead">Goal: steady thumb, relaxed fingers, one chord at a time.</p>
+<div id="L0"></div>
+
+<h2 id="l2">Level 2 – Intermediate</h2>
+<p class="lead">Goal: change chords without losing the groove, then add syncopation.</p>
+<div id="L1"></div>
+
+<h2 id="l3">Level 3 – Advanced</h2>
+<p class="lead">Goal: melody and bass playing as two independent voices.</p>
+<div id="L2"></div>
+
+<div class="card"><h3>Artificial harmonics (technique, no tab)</h3>
+<p>A harmonic is a bell-like note made by touching a string lightly at a node instead of pressing it down. <b>Natural</b> harmonics sit over the 12th, 7th and 5th frets. <b>Artificial</b> harmonics let you play them on any note.</p>
+<ol><li>Fret a note normally with the left hand, say the 3rd fret of string 5 (a C).</li><li>Touch the same string with the right-hand index finger lightly <b>12 frets higher</b>, which is the 15th fret here. Touch only; do not press.</li><li>Pluck with a (or p) just behind your touching finger, then lift the index finger straight away.</li></ol>
+<div class="tip">If you hear a dull click, the touch is too heavy. If it sounds like a normal note, you are on the wrong spot. Slide the index finger a millimetre either way until it rings.</div></div>
+
+<h2 id="practice">Practice that works</h2>
+<div class="card"><h3>30–45 minute routine</h3>
+<ol><li><b>5 min:</b> open-string p-i-m-a and slow chord changes to warm up.</li><li><b>10 min:</b> the one pattern you are working on, starting at 50 BPM.</li><li><b>10 min:</b> chord changes in a progression, looped.</li><li><b>5–10 min:</b> add 4 BPM only if the last pass was clean.</li><li><b>Last:</b> play something you love, without the click.</li></ol></div>
+
+<div class="card"><h3>Fixing common problems</h3>
+<ul>
+<li><b>Thumb rushes or drags:</b> play the thumb alone with the click for two minutes, then add one finger.</li>
+<li><b>Fingers hit the wrong string:</b> prepare the fingers on their strings before plucking (plant), and lift off only after the note.</li>
+<li><b>Notes are uneven in volume:</b> aim to make the thumb slightly louder than the fingers. Count aloud so the off-beats stay lighter.</li>
+<li><b>Chord changes break the rhythm:</b> change the shape on the last “&amp;” and keep the thumb going. The pause is the bass note, not the hand.</li>
+<li><b>Tension in the hand:</b> stop, shake out, drop the tempo by 15 BPM.</li>
+</ul></div>
+
+<div class="card"><h3>Using the patterns in songs</h3>
+<p>One pattern plus one progression is a whole song. Try C–G–Am–Fmaj7 (lesson 5) under any melody you like to sing. The classic fingerstyle repertoire (for example Dust in the Wind-type arpeggios, Blackbird’s paired strings, ballad intros built on open Em) is made from these same moves. Learn those pieces from a licensed score; chord progressions and techniques here are free to use, but the notes of published songs are not reproduced.</p></div>
+
+<div class="card"><h3>12-week plan</h3>
+<table><tr><th>Weeks</th><th>Focus</th><th>Lessons</th></tr>
+<tr><td>1–2</td><td>Posture, p-i-m-a, Am arpeggio</td><td>1–2</td></tr>
+<tr><td>3–4</td><td>Basic Travis on C, then G</td><td>3–4</td></tr>
+<tr><td>5–6</td><td>Chord changes in a progression</td><td>5</td></tr>
+<tr><td>7–8</td><td>Pinch, rolls, syncopation</td><td>6–8</td></tr>
+<tr><td>9–10</td><td>Melody over bass, Em ballad</td><td>9–10</td></tr>
+<tr><td>11–12</td><td>Voice leading, harmonics, your own piece</td><td>11</td></tr></table></div>
+</main>
+<footer>Practise slowly, stay relaxed, and let speed come as a by-product of accuracy.</footer>
+
+<script>
+var OPEN={6:40,5:45,4:50,3:55,2:59,1:64};
+var CH={
+C:{f:[-1,3,2,0,1,0],g:[0,3,2,0,1,0]},G:{f:[3,2,0,0,0,3],g:[2,1,0,0,0,3]},
+Am:{f:[-1,0,2,2,1,0],g:[0,0,2,3,1,0]},F7:{f:[-1,-1,3,2,1,0],g:[0,0,3,2,1,0],n:"Fmaj7"},
+Em:{f:[0,2,2,0,0,0],g:[0,2,3,0,0,0]},D:{f:[-1,-1,0,2,3,2],g:[0,0,0,1,3,2]},
+Dm:{f:[-1,-1,0,2,3,1],g:[0,0,0,2,3,1]}};
+var CNT=["1","&","2","&","3","&","4","&"];
+/* step grammar: finger+string:fret, notes in one column separated by space, columns by | and - = rest */
+var L=[
+[0,"Open-string p-i-m-a","Before any chord, learn the four fingers on four open strings. Thumb plays string 4, then i, m and a take strings 3, 2 and 1, then back down. Each finger lands on its own string, so there is nothing to decide, only to feel.","Pluck with the fingertip and let the finger spring back. Keep the other fingers loosely curled, not stuck out.",
+[["", "p4:0|i3:0|m2:0|a1:0|m2:0|i3:0|p4:0|-"]]],
+[0,"Am arpeggio","An arpeggio plays the notes of a chord one after another instead of together. Hold Am (the shape shows which fingers go where) and run the same p-i-m-a path. Notice the thumb now plays string 5, the root of Am.","Press fretted notes just behind the fret with the fingertip. Let the open strings ring into each other so the chord blends.",
+[["Am","p5:0|i3:2|m2:1|a1:0|m2:1|i3:2|p5:0|-"]]],
+[0,"Thumb alone, alternating bass","The engine of Travis picking is a thumb that alternates between two bass strings on every beat, like walking. In C the bass is string 5 (fret 3, the root C) then string 4 (fret 2, E). Play it alone until it needs no thought; the pulse should be steady even with nothing on top.","Count 1 2 3 4 aloud. The thumb moves on the numbers only.",
+[["C","p5:3|-|p4:2|-|p5:3|-|p4:2|-"]]],
+[0,"Basic Travis pattern (C)","Now add fingers on the “&”s while the thumb keeps walking. Index plays string 3 (open) and middle plays string 2 (fret 1), then ring answers on string 1. Thumb on the numbers, fingers on the ands: the two hands play against each other, and that is the whole feel of the style.","If it falls apart, drop to 50 BPM and add one finger note at a time. The thumb never stops, even if a finger note is missed.",
+[["C","p5:3|i3:0|p4:2|m2:1|p5:3|i3:0|p4:2|a1:0"]]],
+[1,"Travis progression: C – G – Am – Fmaj7","Real music changes chords. Each bar uses the same shape of pattern; only the bass notes and the left hand change. The thumb takes each chord’s root on beat 1 (C on string 5, G on string 6, A on string 5, F on string 4).","Move the left hand on the last “&” of the bar, silently preparing the next shape while the right hand keeps going. Loop the 4 bars with the click on.",
+[["C","p5:3|i3:0|p4:2|m2:1|p5:3|i3:0|p4:2|a1:0"],["G","p6:3|i3:0|p4:0|m2:0|p6:3|i3:0|p4:0|a1:3"],["Am","p5:0|i3:2|p4:2|m2:1|p5:0|i3:2|p4:2|a1:0"],["F7","p4:3|i3:2|p4:3|m2:1|p4:3|i3:2|p4:3|a1:0"]]],
+[1,"The pinch","A pinch is the thumb and a finger played at exactly the same instant. It adds accents and a fuller sound on the strong beats. Here the thumb pairs with a on beats 1 and 3, and with m on beats 2 and 4, while i fills the off-beats.","Think of pinching a coin: both fingers move toward each other and release together. Listen for one note, not a flam.",
+[["C","p5:3 a1:0|i3:0|p4:2 m2:1|i3:0|p5:3 a1:0|i3:0|p4:2 m2:1|i3:0"]]],
+[1,"Forward roll (open G)","A roll is a flowing, repeating group of notes. This one is 3 + 3 + 2: thumb-index-middle twice, then a short thumb-and-ring ending. Eight eighth notes, but you feel three pulses of three before the pattern resets, which gives that rolling bluegrass drive.","Keep the fingers close to the strings, so the roll sounds smooth rather than jerky. Accent the thumb.",
+[["G","p6:3|i3:0|m2:0|p4:0|i3:0|m2:0|p6:3|a1:3"]]],
+[1,"Syncopated groove (Am – C)","Syncopation puts notes on the off-beats and leaves gaps on the beats. Here the thumb skips beat 2, so the bar sounds lighter and the “&” feels pushed forward. Play two bars on Am and two on C.","Silence is part of the rhythm. Count the rests and let the sound hang.",
+[["Am","p5:0|a1:0|-|m2:1|p4:2|i3:2|-|m2:1"],["C","p5:3|a1:0|-|m2:1|p4:2|i3:0|-|m2:1"]]],
+[2,"Melody over alternating bass (G)","Now the top string sings a tune while the thumb keeps time below. Here the melody is a descending G major scale (G, F#, E, D) played by a and m. Practise bass alone, then melody alone, then together. The whole tune is simply the notes on strings 1 and 2.","Learn the melody first by itself as a single line. If the thumb wavers, add the melody one note at a time.",
+[["G","p6:3 a1:3|i3:0|p4:0 a1:2|i3:0|p6:3 a1:0|i3:0|p4:0 m2:3|i3:0"]]],
+[2,"Em ballad arpeggio","A slow, spacious Em arpeggio in the style of rock ballads. The thumb walks from string 6 to string 4 and the fingers climb the strings. Played quietly it sounds like a harp. It is easy to hold the chord, so this lesson is about touch and dynamics.","Play the thumb notes slightly louder, the finger notes softer, and let every note ring into the next.",
+[["Em","p6:0|p4:2|i3:0|m2:0|a1:0|m2:0|i3:0|p4:2"]]],
+[2,"Moving chords: Em – D – C – D","Voice leading means chords change by the smallest possible movement. Notice that the finger notes on strings 1 and 2 barely change between bars, and only the bass and the chord shape do. This is how fingerstyle players make a smooth, singable accompaniment.","Choose the nearest finger movement to the new shape. Keep unused fingers hovering just above the strings.",
+[["Em","p6:0|i3:0|p4:2|m2:0|p6:0|i3:0|p4:2|a1:0"],["D","p4:0|i3:2|p4:0|m2:3|p4:0|i3:2|p4:0|a1:2"],["C","p5:3|i3:0|p4:2|m2:1|p5:3|i3:0|p4:2|a1:0"],["D","p4:0|i3:2|p4:0|m2:3|p4:0|i3:2|p4:0|a1:2"]]]
+];
+var AC=null,ids=[],cur=null,timer=null,bpm=70,KS={};
+function parse(s){var o=[],c=s.split("|"),i,j,t,m;for(i=0;i<c.length;i++){var col=[];t=c[i].replace(/^\s+|\s+$/g,"").split(/\s+/);for(j=0;j<t.length;j++){m=/^([pima])([1-6]):(\d+)$/.exec(t[j]);if(m)col.push({f:m[1],s:+m[2],fr:+m[3]});}o.push(col);}return o;}
+function chordSvg(k){var d=CH[k];if(!d)return"";var x0=16,sp=14,y0=28,fh=18,i,h='<svg width="96" height="'+(y0+fh*4+8)+'" viewBox="0 0 96 '+(y0+fh*4+8)+'" role="img" aria-label="'+(d.n||k)+' chord shape"><text x="48" y="12" text-anchor="middle" font-size="13" font-weight="700" fill="#ffe9cc" font-family="Georgia,serif">'+(d.n||k)+'</text>';
+h+='<rect x="'+x0+'" y="'+(y0-3)+'" width="'+(sp*5)+'" height="4" fill="#f2a93b"/>';
+for(i=0;i<6;i++)h+='<line x1="'+(x0+i*sp)+'" y1="'+y0+'" x2="'+(x0+i*sp)+'" y2="'+(y0+fh*4)+'" stroke="#8e96a8" stroke-width="1"/>';
+for(i=1;i<=4;i++)h+='<line x1="'+x0+'" y1="'+(y0+i*fh)+'" x2="'+(x0+sp*5)+'" y2="'+(y0+i*fh)+'" stroke="#5a3d22" stroke-width="1.5"/>';
+for(i=0;i<6;i++){var f=d.f[i],x=x0+i*sp;if(f<0)h+='<text x="'+x+'" y="'+(y0-8)+'" text-anchor="middle" font-size="10" fill="#d9534f">x</text>';else if(f===0)h+='<circle cx="'+x+'" cy="'+(y0-10)+'" r="3" fill="none" stroke="#7bd88f" stroke-width="1.3"/>';else h+='<circle cx="'+x+'" cy="'+(y0+(f-.5)*fh)+'" r="6.5" fill="#f2a93b"/><text x="'+x+'" y="'+(y0+(f-.5)*fh+4)+'" text-anchor="middle" font-size="10" font-weight="700" fill="#111215">'+(d.g[i]||"")+'</text>';}
+return h+"</svg>";}
+function lessonHtml(l,n){var h='<div class="card" id="ls'+n+'"><div class="meta"><h3>'+(n+1)+'. '+l[1]+'</h3><label><input type="checkbox" data-d="'+n+'"> mastered at 60 BPM</label></div><p>'+l[2]+'</p>';
+var b,s,i,j;for(b=0;b<l[4].length;b++){var st=parse(l[4][b][1]);h+='<div class="stage"><div>'+chordSvg(l[4][b][0])+'</div><div class="bar">';
+for(s=0;s<8;s++){h+='<div class="col" id="c'+n+'_'+b+'_'+s+'"><span class="n">'+CNT[s]+'</span>';
+for(i=1;i<=6;i++){var cell="";for(j=0;j<st[s].length;j++)if(st[s][j].s===i)cell='<b'+(st[s][j].f==="p"?' class="p"':'')+'>'+st[s][j].fr+'</b>';h+='<span class="c">'+cell+'</span>';}
+var fl="";for(j=0;j<st[s].length;j++)fl+=st[s][j].f;h+='<span class="f">'+fl+'</span></div>';}
+h+='</div></div>';}
+h+='<div class="tip">'+l[3]+'</div><div class="row"><button data-p="'+n+'">Play</button><span class="cap">Loops until you press Stop.</span></div></div>';return h;}
+function build(){var n,out=["","",""];for(n=0;n<L.length;n++)out[L[n][0]]+=lessonHtml(L[n],n);for(n=0;n<3;n++)document.getElementById("L"+n).innerHTML=out[n];}
+function ctx(){if(!AC)AC=new(window.AudioContext||window.webkitAudioContext)();if(AC.state==="suspended")AC.resume();return AC;}
+function ks(m){if(KS[m])return KS[m];var a=ctx(),sr=a.sampleRate,fq=440*Math.pow(2,(m-69)/12),N=Math.round(sr/fq),len=Math.floor(sr*2.2),buf=a.createBuffer(1,len,sr),d=buf.getChannelData(0),i,seed=m*7919+13;
+for(i=0;i<N;i++){seed=(seed*16807)%2147483647;d[i]=(seed/1073741823)-1;}
+for(i=N;i<len;i++)d[i]=.9965*.5*(d[i-N]+d[i-N+1]);KS[m]=buf;return buf;}
+function note(s,fr,g){var a=ctx(),src=a.createBufferSource(),gn=a.createGain();src.buffer=ks(OPEN[s]+fr);gn.gain.value=g;src.connect(gn);gn.connect(a.destination);src.start();}
+function click(strong){var a=ctx(),o=a.createOscillator(),g=a.createGain();o.frequency.value=strong?1200:800;g.gain.setValueAtTime(.12,a.currentTime);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+.05);o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+.06);}
+function stop(){clearTimeout(timer);timer=null;var b=document.querySelectorAll("button[data-p]"),i;for(i=0;i<b.length;i++){b[i].textContent="Play";b[i].className="";}var h=document.querySelectorAll(".col.act");for(i=0;i<h.length;i++)h[i].className="col";cur=null;}
+function play(n){stop();cur={n:n,b:0,s:0,bars:[]};var i;for(i=0;i<L[n][4].length;i++)cur.bars.push(parse(L[n][4][i][1]));var btn=document.querySelector('button[data-p="'+n+'"]');btn.textContent="Stop";btn.className="on";ctx();step();}
+function step(){if(!cur)return;var p=document.querySelectorAll(".col.act"),i;for(i=0;i<p.length;i++)p[i].className="col";
+document.getElementById("c"+cur.n+"_"+cur.b+"_"+cur.s).className="col act";
+var col=cur.bars[cur.b][cur.s];for(i=0;i<col.length;i++)note(col[i].s,col[i].fr,col[i].f==="p"?.5:.38);
+if(document.getElementById("clk").checked&&cur.s%2===0)click(cur.s===0);
+cur.s++;if(cur.s>=8){cur.s=0;cur.b=(cur.b+1)%cur.bars.length;}
+timer=setTimeout(step,30000/bpm);}
+function setBpm(v){bpm=v;document.getElementById("bpm").textContent=v;}
+function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v);}catch(e){return null;}}
+build();
+document.getElementById("sl").addEventListener("input",function(){setBpm(parseInt(this.value,10));});
+document.getElementById("stop").addEventListener("click",stop);
+document.addEventListener("click",function(e){var t=e.target;if(t.getAttribute&&t.getAttribute("data-p")!==null){if(cur&&cur.n===+t.getAttribute("data-p"))stop();else play(+t.getAttribute("data-p"));}
+if(t.getAttribute&&t.getAttribute("data-d")!==null){var d=(store("fp_done")||"").split(","),k=t.getAttribute("data-d"),ix=d.indexOf(k);if(t.checked&&ix<0)d.push(k);if(!t.checked&&ix>=0)d.splice(ix,1);store("fp_done",d.join(","));}});
+(function(){var d=(store("fp_done")||"").split(","),i,c;for(i=0;i<d.length;i++){c=document.querySelector('input[data-d="'+d[i]+'"]');if(c)c.checked=true;}})();
+</script>
+</body>
+</html>
