@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guitar Fingerpicking Mastery – Beginner to Advanced</title>
+<style>
+  :root {
+    --bg: #0f1419;
+    --card: #1a2332;
+    --accent: #3b82f6;
+    --accent2: #10b981;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 0 0 80px;
+  }
+  header {
+    background: linear-gradient(135deg, #1e3a5f, #0f172a);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border-bottom: 3px solid var(--accent);
+  }
+  header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+  header p { color: var(--muted); max-width: 700px; margin: 0 auto; }
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    padding: 1rem;
+    background: #111827;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid #334155;
+  }
+  nav a {
+    color: var(--text);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: background 0.2s;
+  }
+  nav a:hover, nav a.active { background: var(--accent); }
+  .container { max-width: 980px; margin: 0 auto; padding: 1.5rem; }
+  section {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 1.75rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+  h2 { color: var(--accent); margin-bottom: 1rem; font-size: 1.6rem; border-bottom: 2px solid #334155; padding-bottom: 0.4rem; }
+  h3 { color: var(--accent2); margin: 1.4rem 0 0.6rem; }
+  h4 { color: #93c5fd; margin: 1rem 0 0.4rem; }
+  p, li { margin-bottom: 0.6rem; }
+  ul, ol { padding-left: 1.4rem; margin-bottom: 1rem; }
+  .fretboard {
+    background: #1e293b;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+  }
+  svg { display: block; margin: 0 auto; max-width: 100%; }
+  .pattern-box {
+    background: #0f172a;
+    border-left: 4px solid var(--accent);
+    padding: 1rem 1.2rem;
+    margin: 1rem 0;
+    border-radius: 0 8px 8px 0;
+    font-family: 'Courier New', monospace;
+    white-space: pre-wrap;
+    font-size: 0.95rem;
+  }
+  .tip {
+    background: #064e3b;
+    border-left: 4px solid var(--accent2);
+    padding: 0.9rem 1.1rem;
+    margin: 1rem 0;
+    border-radius: 0 8px 8px 0;
+  }
+  .warning {
+    background: #7f1d1d;
+    border-left: 4px solid #ef4444;
+    padding: 0.9rem 1.1rem;
+    margin: 1rem 0;
+    border-radius: 0 8px 8px 0;
+  }
+  .metro-panel, .fb-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.8rem;
+    background: #0f172a;
+    padding: 1.1rem;
+    border-radius: 10px;
+    margin: 1rem 0;
+  }
+  .metro-panel label, .fb-controls label { font-weight: 600; }
+  #bpmValue { font-size: 1.8rem; font-weight: 700; color: var(--accent); min-width: 70px; text-align: center; }
+  input[type=range] { width: 160px; accent-color: var(--accent); }
+  button {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 0.55rem 1.1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
+    font-size: 0.95rem;
+  }
+  button:hover { background: #2563eb; }
+  button.secondary { background: #475569; }
+  button.secondary:hover { background: #64748b; }
+  button.playing { background: #ef4444; }
+  button.preset { background: #0f766e; }
+  button.preset:hover { background: #0d9488; }
+  .beat-indicator { display: flex; gap: 8px; margin-top: 0.5rem; }
+  .beat {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: #334155;
+    transition: background 0.1s;
+  }
+  .beat.active { background: var(--accent2); box-shadow: 0 0 10px var(--accent2); }
+  .beat.strong { background: #f59e0b; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+  }
+  th, td {
+    border: 1px solid #334155;
+    padding: 0.6rem 0.8rem;
+    text-align: left;
+  }
+  th { background: #1e293b; color: var(--accent); }
+  .song-card {
+    background: #0f172a;
+    border-radius: 10px;
+    padding: 1.2rem;
+    margin: 1rem 0;
+    border: 1px solid #334155;
+  }
+  .song-card h4 { margin-top: 0; color: #fbbf24; }
+  /* Interactive Fretboard specific */
+  #interactiveBoard {
+    background: #0f172a;
+    border-radius: 12px;
+    padding: 1.2rem;
+    margin: 1rem 0;
+    border: 2px solid #334155;
+  }
+  #fbSvg { cursor: crosshair; background: #1e293b; border-radius: 8px; }
+  .finger-select {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .finger-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 2px solid #475569;
+    background: #1e293b;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .finger-btn.active {
+    border-color: #fbbf24;
+    background: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.4);
+  }
+  .legend-dot {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.6rem; }
+    .metro-panel, .fb-controls { flex-direction: column; align-items: stretch; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Guitar Fingerpicking Mastery</h1>
+  <p>Complete beginner-to-advanced interactive suite • Visual fretboards • Tempo control • Songs & techniques</p>
+</header>
+
+<nav>
+  <a href="#intro">Intro</a>
+  <a href="#posture">Posture & Hands</a>
+  <a href="#beginner">Beginner</a>
+  <a href="#intermediate">Intermediate</a>
+  <a href="#advanced">Advanced</a>
+  <a href="#songs">Songs</a>
+  <a href="#interactive">Interactive Fretboard</a>
+  <a href="#practice">Practice Tools</a>
+  <a href="#progress">Progress Plan</a>
+</nav>
+
+<div class="container">
+
+<!-- INTRO -->
+<section id="intro">
+  <h2>Welcome & Philosophy</h2>
+  <p>Fingerpicking (fingerstyle) is the art of plucking individual strings with the fingers of the right hand instead of a pick. It allows independent bass lines, melody, and harmony simultaneously.</p>
+  <p>This suite takes you from absolute beginner to advanced independence with visual fretboards, interactive tools, and classic songs.</p>
+  <div class="tip">
+    <strong>Core Principle:</strong> Always practice slower than you think you need. Speed is a by-product of accuracy and relaxation.
+  </div>
+</section>
+
+<!-- POSTURE -->
+<section id="posture">
+  <h2>1. Posture, Hand Position & Nail Care</h2>
+  <h3>Sitting Position</h3>
+  <ul>
+    <li>Sit upright on a firm chair.</li>
+    <li>Classical position: left foot elevated, guitar on left thigh, neck angled upward.</li>
+    <li>Folk position: guitar on right thigh is fine for steel-string.</li>
+  </ul>
+  <h3>Right-Hand Position</h3>
+  <ul>
+    <li>Wrist slightly arched.</li>
+    <li>Fingers approach strings nearly perpendicular.</li>
+    <li>Thumb (p) stays in front of the fingers.</li>
+  </ul>
+  <h3>Finger Labels</h3>
+  <table>
+    <tr><th>Finger</th><th>Symbol</th><th>Typical Strings</th></tr>
+    <tr><td>Thumb</td><td>p</td><td>6, 5, 4 (bass)</td></tr>
+    <tr><td>Index</td><td>i</td><td>3</td></tr>
+    <tr><td>Middle</td><td>m</td><td>2</td></tr>
+    <tr><td>Ring</td><td>a</td><td>1</td></tr>
+  </table>
+  <div class="warning">Avoid collapsing the wrist or heavy pinky anchoring.</div>
+</section>
+
+<!-- BEGINNER -->
+<section id="beginner">
+  <h2>2. Beginner Level – Foundation Patterns</h2>
+  <h3>2.1 Free Stroke vs Rest Stroke</h3>
+  <p>Start with free stroke (tirando) for modern fingerstyle.</p>
+  <h3>2.2 Basic Alternating Thumb (Travis Foundation)</h3>
+  <div class="pattern-box">Pattern 1 – Basic Travis (C)
+e|--------1-----------1-------|
+B|----0-------0---0-------0---|
+G|----------------------------|
+D|--------2-----------2-------|
+A|3---------------3-----------|
+E|----------------------------|
+   p   i   p   m   p   i   p   m</div>
+  <h3>2.3 Simple Arpeggio (p-i-m-a)</h3>
+  <div class="pattern-box">Pattern 2 – Forward Arpeggio (Am)
+e|------------0---------------|
+B|--------1-------1-----------|
+G|----2---------------2-------|
+D|----------------------------|
+A|0-----------------------0---|
+E|----------------------------|
+  p   i   m   a   m   i   p</div>
+</section>
+
+<!-- INTERMEDIATE -->
+<section id="intermediate">
+  <h2>3. Intermediate – Independence & Patterns</h2>
+  <h3>3.1 Full Travis Picking</h3>
+  <div class="pattern-box">Pattern 3 – Classic Travis in G
+e|--------3-----------3-------|
+B|----0-------0---0-------0---|
+G|----------------------------|
+D|--------0-----------0-------|
+A|----------------------------|
+E|3---------------3-----------|
+  p   i   p   m   p   i   p   m</div>
+  <h3>3.2 Pinch Technique</h3>
+  <div class="pattern-box">Pattern 4 – Pinch + Fill (C)
+e|--------0-----------0-------|
+B|----1-------1---1-------1---|
+G|----------------------------|
+D|--------2-----------2-------|
+A|3---------------3-----------|
+E|----------------------------|
+  p+m  i   p   m   p+i  m   p   i</div>
+</section>
+
+<!-- ADVANCED -->
+<section id="advanced">
+  <h2>4. Advanced Techniques</h2>
+  <h3>4.1 Independent Melody + Bass</h3>
+  <div class="pattern-box">Melody over alternating bass (G)
+e|--------3-----2-----3-------|
+B|----0-------3---------------|
+G|----------------------------|
+D|--------0-----------0-------|
+A|----------------------------|
+E|3---------------3-----------|
+  p   m   p   i   p   m   p</div>
+  <h3>4.2 Artificial Harmonics</h3>
+  <p>Fret a note, lightly touch 12 frets higher with index, pluck with a or p.</p>
+  <h3>4.3 Banjo Rolls</h3>
+  <div class="pattern-box">Forward Roll (open G)
+e|------------------------|
+B|----0-------0-------0---|
+G|--------0-------0-------|
+D|------------------------|
+A|------------------------|
+E|3---------------3-------|
+  p   i   m   p   i   m</div>
+  <div class="warning">Never force speed. Reduce tempo if tension appears.</div>
+</section>
+
+<!-- SONGS -->
+<section id="songs">
+  <h2>5. Songs to Learn (Progressive)</h2>
+
+  <div class="song-card">
+    <h4>Beginner – Dust in the Wind style</h4>
+    <div class="pattern-box">Opening (C)
+e|--------0-----------0-------|
+B|----1-------1---1-------1---|
+G|----------------------------|
+D|--------2-----------2-------|
+A|3---------------3-----------|
+E|----------------------------|
+  p   i   p   m   p   i   p   m</div>
+  </div>
+
+  <div class="song-card">
+    <h4>Early Intermediate – Blackbird (Beatles)</h4>
+    <div class="pattern-box">Opening phrase (simplified)
+e|----------------0-----------|
+B|--------0---3-------3-------|
+G|----0-----------------------|
+D|----------------------------|
+A|----------------------------|
+E|3---------------------------|
+  p   i   m   a   m   i</div>
+  </div>
+
+  <div class="song-card">
+    <h4>Intermediate – Nothing Else Matters Intro</h4>
+    <div class="pattern-box">Em arpeggio
+e|----------------0-----------|
+B|------------0-------0-------|
+G|--------0---------------0---|
+D|----2-----------------------|
+A|----------------------------|
+E|0---------------------------|
+  p   i   m   a   m   i   p</div>
+  </div>
+
+  <div class="song-card">
+    <h4>Intermediate – Landslide / Boxer style</h4>
+    <div class="pattern-box">Travis (C)
+e|--------0-----------0-------|
+B|----1-------1---3-------1---|
+G|----------------------------|
+D|--------2-----------2-------|
+A|3---------------3-----------|
+E|----------------------------|
+  p   i   p   m   p   i   p   m</div>
+  </div>
+</section>
+
+<!-- ========== INTERACTIVE FRETBOARD ========== -->
+<section id="interactive">
+  <h2>Interactive Fretboard – Finger Placement Tool</h2>
+  <p>Click any intersection of string + fret to place a note. Select the finger first, then click. Use presets to load common patterns. Press <strong>Play Sequence</strong> to step through the notes at the current metronome tempo.</p>
+
+  <div id="interactiveBoard">
+    <!-- Finger selector -->
+    <div class="fb-controls">
+      <label>Left Hand:</label>
+      <div class="finger-select" id="leftFingers">
+        <button class="finger-btn" data-finger="1" data-hand="L">1</button>
+        <button class="finger-btn" data-finger="2" data-hand="L">2</button>
+        <button class="finger-btn" data-finger="3" data-hand="L">3</button>
+        <button class="finger-btn" data-finger="4" data-hand="L">4</button>
+      </div>
+      <label style="margin-left:12px;">Right Hand:</label>
+      <div class="finger-select" id="rightFingers">
+        <button class="finger-btn" data-finger="p" data-hand="R">p</button>
+        <button class="finger-btn" data-finger="i" data-hand="R">i</button>
+        <button class="finger-btn" data-finger="m" data-hand="R">m</button>
+        <button class="finger-btn" data-finger="a" data-hand="R">a</button>
+      </div>
+    </div>
+
+    <!-- Preset buttons -->
+    <div class="fb-controls">
+      <button class="preset" onclick="loadPreset('travisC')">Travis C</button>
+      <button class="preset" onclick="loadPreset('arpeggioAm')">Arpeggio Am</button>
+      <button class="preset" onclick="loadPreset('travisG')">Travis G</button>
+      <button class="preset" onclick="loadPreset('blackbird')">Blackbird</button>
+      <button class="preset" onclick="loadPreset('banjo')">Banjo Roll</button>
+      <button class="preset" onclick="loadPreset('nem')">Nothing Else Matters</button>
+      <button class="secondary" onclick="clearBoard()">Clear Board</button>
+      <button id="playSeqBtn" onclick="toggleSequence()">Play Sequence</button>
+    </div>
+
+    <!-- The SVG fretboard -->
+    <svg id="fbSvg" width="560" height="260" viewBox="0 0 560 260"></svg>
+
+    <div style="margin-top:0.8rem; font-size:0.9rem; color:#94a3b8;">
+      <span class="legend-dot" style="background:#3b82f6;"></span> Left hand
+      <span class="legend-dot" style="background:#10b981; margin-left:12px;"></span> Right hand (p)
+      <span class="legend-dot" style="background:#f59e0b; margin-left:12px;"></span> Right hand (i/m/a)
+      &nbsp;&nbsp;• Click a placed note to remove it
+    </div>
+  </div>
+</section>
+
+<!-- PRACTICE TOOLS -->
+<section id="practice">
+  <h2>6. Interactive Practice Tools</h2>
+  <h3>Metronome & Tempo Control</h3>
+  <p>Used by the Interactive Fretboard sequence player and for all practice.</p>
+
+  <div class="metro-panel">
+    <label>BPM:</label>
+    <span id="bpmValue">70</span>
+    <input type="range" id="bpmSlider" min="40" max="160" value="70">
+    <button id="startStopBtn">Start</button>
+    <button class="secondary" id="tapBtn">Tap Tempo</button>
+    <div class="beat-indicator">
+      <div class="beat" id="b1"></div>
+      <div class="beat" id="b2"></div>
+      <div class="beat" id="b3"></div>
+      <div class="beat" id="b4"></div>
+    </div>
+  </div>
+
+  <div class="tip">
+    <strong>Daily Routine (30–45 min):</strong><br>
+    5 min warm-up → 10 min current pattern → 10 min song → 5–10 min speed bursts → free play
+  </div>
+</section>
+
+<!-- PROGRESS -->
+<section id="progress">
+  <h2>7. 12-Week Progress Roadmap</h2>
+  <ol>
+    <li><strong>Weeks 1–2:</strong> Posture + basic p-i / p-i-m. Use Interactive Fretboard presets.</li>
+    <li><strong>Weeks 3–4:</strong> Full Travis on C-G-Am-F.</li>
+    <li><strong>Weeks 5–6:</strong> First complete song (Dust in the Wind style).</li>
+    <li><strong>Weeks 7–8:</strong> Blackbird – melody + bass independence.</li>
+    <li><strong>Weeks 9–10:</strong> Longer arpeggios + harmonics.</li>
+    <li><strong>Weeks 11–12:</strong> Intermediate song + banjo rolls / light percussion.</li>
+  </ol>
+</section>
+
+</div>
+
+<footer>
+  Guitar Fingerpicking Mastery Suite • Practice slowly, stay relaxed, enjoy the process.
+</footer>
+
+<script>
+/* ===================== METRONOME ===================== */
+let audioCtx = null;
+let isPlaying = false;
+let currentBeat = 0;
+let timerId = null;
+let bpm = 70;
+let lastTap = 0;
+
+const bpmSlider = document.getElementById('bpmSlider');
+const bpmValue = document.getElementById('bpmValue');
+const startStopBtn = document.getElementById('startStopBtn');
+const tapBtn = document.getElementById('tapBtn');
+const beats = [document.getElementById('b1'), document.getElementById('b2'), document.getElementById('b3'), document.getElementById('b4')];
+
+bpmSlider.addEventListener('input', () => {
+  bpm = parseInt(bpmSlider.value);
+  bpmValue.textContent = bpm;
+  if (isPlaying) restartMetronome();
+});
+
+startStopBtn.addEventListener('click', () => {
+  if (isPlaying) stopMetronome();
+  else startMetronome();
+});
+
+tapBtn.addEventListener('click', () => {
+  const now = performance.now();
+  if (lastTap > 0) {
+    const interval = now - lastTap;
+    if (interval < 2000) {
+      const newBpm = Math.round(60000 / interval);
+      if (newBpm >= 40 && newBpm <= 160) {
+        bpm = newBpm;
+        bpmSlider.value = bpm;
+        bpmValue.textContent = bpm;
+        if (isPlaying) restartMetronome();
+      }
+    }
+  }
+  lastTap = now;
+});
+
+function initAudio() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+}
+
+function playClick(strong = false) {
+  initAudio();
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  osc.frequency.value = strong ? 1000 : 700;
+  gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+  osc.start(audioCtx.currentTime);
+  osc.stop(audioCtx.currentTime + 0.08);
+}
+
+function tick() {
+  beats.forEach(b => b.classList.remove('active', 'strong'));
+  beats[currentBeat].classList.add('active');
+  if (currentBeat === 0) beats[currentBeat].classList.add('strong');
+  playClick(currentBeat === 0);
+  currentBeat = (currentBeat + 1) % 4;
+}
+
+function startMetronome() {
+  initAudio();
+  isPlaying = true;
+  startStopBtn.textContent = 'Stop';
+  startStopBtn.classList.add('playing');
+  currentBeat = 0;
+  tick();
+  timerId = setInterval(tick, 60000 / bpm);
+}
+
+function stopMetronome() {
+  isPlaying = false;
+  startStopBtn.textContent = 'Start';
+  startStopBtn.classList.remove('playing');
+  clearInterval(timerId);
+  beats.forEach(b => b.classList.remove('active', 'strong'));
+}
+
+function restartMetronome() {
+  stopMetronome();
+  startMetronome();
+}
+
+/* ===================== INTERACTIVE FRETBOARD ===================== */
+const svg = document.getElementById('fbSvg');
+const NS = "http://www.w3.org/2000/svg";
+
+// Layout constants
+const leftMargin = 50;
+const topMargin = 30;
+const fretWidth = 70;
+const stringSpacing = 28;
+const numFrets = 6;
+const numStrings = 6;
+
+// State
+let notes = [];          // {string:0-5, fret:0-6, finger:string, hand:'L'|'R'}
+let selectedFinger = 'i';
+let selectedHand = 'R';
+let sequencePlaying = false;
+let seqIndex = 0;
+let seqTimer = null;
+
+// String Y positions (high e = 0)
+function stringY(s) { return topMargin + s * stringSpacing; }
+// Fret X positions (0 = open/nut)
+function fretX(f) { return leftMargin + f * fretWidth; }
+
+function drawBoard() {
+  svg.innerHTML = '';
+
+  // Background
+  const bg = document.createElementNS(NS, 'rect');
+  bg.setAttribute('x', 0); bg.setAttribute('y', 0);
+  bg.setAttribute('width', 560); bg.setAttribute('height', 260);
+  bg.setAttribute('fill', '#1e293b');
+  svg.appendChild(bg);
+
+  // Nut
+  const nut = document.createElementNS(NS, 'rect');
+  nut.setAttribute('x', leftMargin - 6);
+  nut.setAttribute('y', topMargin - 5);
+  nut.setAttribute('width', 8);
+  nut.setAttribute('height', (numStrings-1)*stringSpacing + 10);
+  nut.setAttribute('fill', '#94a3b8');
+  svg.appendChild(nut);
+
+  // Frets
+  for (let f = 1; f <= numFrets; f++) {
+    const line = document.createElementNS(NS, 'line');
+    line.setAttribute('x1', fretX(f));
+    line.setAttribute('x2', fretX(f));
+    line.setAttribute('y1', topMargin - 5);
+    line.setAttribute('y2', topMargin + (numStrings-1)*stringSpacing + 5);
+    line.setAttribute('stroke', '#64748b');
+    line.setAttribute('stroke-width', 2);
+    svg.appendChild(line);
+  }
+
+  // Strings + labels
+  const stringNames = ['e','B','G','D','A','E'];
+  for (let s = 0; s < numStrings; s++) {
+    const y = stringY(s);
+    const line = document.createElementNS(NS, 'line');
+    line.setAttribute('x1', leftMargin - 6);
+    line.setAttribute('x2', fretX(numFrets) + 20);
+    line.setAttribute('y1', y);
+    line.setAttribute('y2', y);
+    line.setAttribute('stroke', s < 2 ? '#e2e8f0' : (s < 4 ? '#94a3b8' : '#64748b'));
+    line.setAttribute('stroke-width', 1.5 + s * 0.3);
+    svg.appendChild(line);
+
+    const label = document.createElementNS(NS, 'text');
+    label.setAttribute('x', 12);
+    label.setAttribute('y', y + 4);
+    label.setAttribute('fill', '#94a3b8');
+    label.setAttribute('font-size', '13');
+    label.textContent = stringNames[s];
+    svg.appendChild(label);
+  }
+
+  // Fret numbers
+  for (let f = 0; f <= numFrets; f++) {
+    const t = document.createElementNS(NS, 'text');
+    t.setAttribute('x', f === 0 ? leftMargin - 20 : fretX(f) - fretWidth/2);
+    t.setAttribute('y', topMargin + (numStrings-1)*stringSpacing + 28);
+    t.setAttribute('fill', '#64748b');
+    t.setAttribute('font-size', '12');
+    t.setAttribute('text-anchor', 'middle');
+    t.textContent = f === 0 ? 'open' : f;
+    svg.appendChild(t);
+  }
+
+  // Clickable hotspots (invisible)
+  for (let s = 0; s < numStrings; s++) {
+    for (let f = 0; f <= numFrets; f++) {
+      const hit = document.createElementNS(NS, 'circle');
+      const x = f === 0 ? leftMargin - 18 : fretX(f) - fretWidth/2;
+      const y = stringY(s);
+      hit.setAttribute('cx', x);
+      hit.setAttribute('cy', y);
+      hit.setAttribute('r', 16);
+      hit.setAttribute('fill', 'transparent');
+      hit.style.cursor = 'pointer';
+      hit.addEventListener('click', () => toggleNote(s, f));
+      svg.appendChild(hit);
+    }
+  }
+
+  // Draw existing notes
+  notes.forEach((n, idx) => drawNote(n, idx === seqIndex && sequencePlaying));
+}
+
+function drawNote(n, highlight = false) {
+  const x = n.fret === 0 ? leftMargin - 18 : fretX(n.fret) - fretWidth/2;
+  const y = stringY(n.string);
+
+  const color = n.hand === 'L' ? '#3b82f6' :
+                (n.finger === 'p' ? '#10b981' : '#f59e0b');
+
+  const circle = document.createElementNS(NS, 'circle');
+  circle.setAttribute('cx', x);
+  circle.setAttribute('cy', y);
+  circle.setAttribute('r', highlight ? 16 : 13);
+  circle.setAttribute('fill', color);
+  if (highlight) {
+    circle.setAttribute('stroke', '#fbbf24');
+    circle.setAttribute('stroke-width', 3);
+  }
+  circle.style.cursor = 'pointer';
+  circle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    removeNote(n.string, n.fret);
+  });
+  svg.appendChild(circle);
+
+  const text = document.createElementNS(NS, 'text');
+  text.setAttribute('x', x);
+  text.setAttribute('y', y + 5);
+  text.setAttribute('fill', n.hand === 'L' ? 'white' : '#111');
+  text.setAttribute('font-size', '13');
+  text.setAttribute('font-weight', 'bold');
+  text.setAttribute('text-anchor', 'middle');
+  text.textContent = n.finger;
+  text.style.pointerEvents = 'none';
+  svg.appendChild(text);
+}
+
+function toggleNote(string, fret) {
+  const existing = notes.findIndex(n => n.string === string && n.fret === fret);
+  if (existing >= 0) {
+    notes.splice(existing, 1);
+  } else {
+    notes.push({
+      string,
+      fret,
+      finger: selectedFinger,
+      hand: selectedHand
+    });
+  }
+  // keep notes in a sensible order (low string to high, then left to right)
+  notes.sort((a, b) => a.string - b.string || a.fret - b.fret);
+  drawBoard();
+}
+
+function removeNote(string, fret) {
+  notes = notes.filter(n => !(n.string === string && n.fret === fret));
+  drawBoard();
+}
+
+function clearBoard() {
+  notes = [];
+  stopSequence();
+  drawBoard();
+}
+
+/* Finger selection buttons */
+document.querySelectorAll('.finger-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.finger-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedFinger = btn.dataset.finger;
+    selectedHand = btn.dataset.hand;
+  });
+});
+// default select
+document.querySelector('.finger-btn[data-finger="i"]').classList.add('active');
+
+/* Presets */
+const presets = {
+  travisC: [
+    {string:4, fret:3, finger:'3', hand:'L'},
+    {string:3, fret:2, finger:'2', hand:'L'},
+    {string:1, fret:1, finger:'1', hand:'L'},
+    {string:4, fret:3, finger:'p', hand:'R'},
+    {string:1, fret:0, finger:'i', hand:'R'},
+    {string:3, fret:2, finger:'p', hand:'R'},
+    {string:0, fret:1, finger:'m', hand:'R'}
+  ],
+  arpeggioAm: [
+    {string:4, fret:0, finger:'p', hand:'R'},
+    {string:2, fret:2, finger:'i', hand:'R'},
+    {string:1, fret:1, finger:'m', hand:'R'},
+    {string:0, fret:0, finger:'a', hand:'R'},
+    {string:1, fret:1, finger:'m', hand:'R'},
+    {string:2, fret:2, finger:'i', hand:'R'}
+  ],
+  travisG: [
+    {string:5, fret:3, finger:'3', hand:'L'},
+    {string:0, fret:3, finger:'4', hand:'L'},
+    {string:5, fret:3, finger:'p', hand:'R'},
+    {string:1, fret:0, finger:'i', hand:'R'},
+    {string:3, fret:0, finger:'p', hand:'R'},
+    {string:0, fret:3, finger:'m', hand:'R'}
+  ],
+  blackbird: [
+    {string:5, fret:3, finger:'3', hand:'L'},
+    {string:2, fret:0, finger:'i', hand:'R'},
+    {string:1, fret:0, finger:'m', hand:'R'},
+    {string:0, fret:0, finger:'a', hand:'R'},
+    {string:1, fret:3, finger:'m', hand:'R'}
+  ],
+  banjo: [
+    {string:5, fret:3, finger:'p', hand:'R'},
+    {string:2, fret:0, finger:'i', hand:'R'},
+    {string:1, fret:0, finger:'m', hand:'R'},
+    {string:5, fret:3, finger:'p', hand:'R'},
+    {string:2, fret:0, finger:'i', hand:'R'},
+    {string:1, fret:0, finger:'m', hand:'R'}
+  ],
+  nem: [
+    {string:5, fret:0, finger:'p', hand:'R'},
+    {string:3, fret:2, finger:'i', hand:'R'},
+    {string:2, fret:0, finger:'m', hand:'R'},
+    {string:1, fret:0, finger:'a', hand:'R'},
+    {string:0, fret:0, finger:'a', hand:'R'},
+    {string:1, fret:0, finger:'m', hand:'R'},
+    {string:2, fret:0, finger:'i', hand:'R'}
+  ]
+};
+
+function loadPreset(name) {
+  notes = JSON.parse(JSON.stringify(presets[name] || []));
+  stopSequence();
+  drawBoard();
+}
+
+/* Sequence player */
+function toggleSequence() {
+  if (sequencePlaying) stopSequence();
+  else startSequence();
+}
+
+function startSequence() {
+  if (notes.length === 0) return;
+  sequencePlaying = true;
+  seqIndex = 0;
+  document.getElementById('playSeqBtn').textContent = 'Stop Sequence';
+  document.getElementById('playSeqBtn').classList.add('playing');
+  drawBoard();
+  seqTimer = setInterval(() => {
+    seqIndex = (seqIndex + 1) % notes.length;
+    drawBoard();
+    // also advance metronome visual if desired
+  }, 60000 / bpm);
+}
+
+function stopSequence() {
+  sequencePlaying = false;
+  clearInterval(seqTimer);
+  document.getElementById('playSeqBtn').textContent = 'Play Sequence';
+  document.getElementById('playSeqBtn').classList.remove('playing');
+  seqIndex = 0;
+  drawBoard();
+}
+
+// Initial draw
+drawBoard();
+
+/* Smooth scroll */
+document.querySelectorAll('nav a').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>
